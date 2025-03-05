@@ -1,35 +1,49 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const pagesContainer = document.getElementById("pages");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
-
-    let currentIndex = 0;
-
-    // Create 25 pages dynamically
-    for (let i = 1; i <= 25; i++) {
-        let page = document.createElement("div");
-        page.classList.add("page");
-        page.textContent = `Page ${i}`;
-        pagesContainer.appendChild(page);
-    }
-
-    // Navigation Function
-    function updatePage() {
-        let offset = -currentIndex * 100;
-        pagesContainer.style.transform = `translateX(${offset}vw)`;
-    }
-
-    nextBtn.addEventListener("click", function () {
-        if (currentIndex < 24) {
-            currentIndex++;
-            updatePage();
-        }
-    });
-
-    prevBtn.addEventListener("click", function () {
-        if (currentIndex > 0) {
-            currentIndex--;
-            updatePage();
-        }
+// Smooth scrolling for navigation links
+document.querySelectorAll('nav ul li a').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        document.getElementById(targetId).scrollIntoView({
+            behavior: 'smooth'
+        });
     });
 });
+
+// Digital Magazine Pagination Logic
+let currentPage = 1;
+const pages = document.querySelectorAll('.page');
+
+function updatePages() {
+    pages.forEach((page, index) => {
+        page.classList.toggle('active', index + 1 === currentPage);
+    });
+}
+
+document.getElementById('prevPage').addEventListener('click', function() {
+    if (currentPage > 1) {
+        currentPage--;
+        updatePages();
+    }
+});
+
+document.getElementById('nextPage').addEventListener('click', function() {
+    if (currentPage < pages.length) {
+        currentPage++;
+        updatePages();
+    }
+});
+
+updatePages();
+
+// Load Markdown blog posts dynamically
+async function loadMarkdown(file) {
+    try {
+        const response = await fetch(file);
+        if (!response.ok) throw new Error("Markdown file not found");
+        
+        const markdownText = await response.text();
+        document.getElementById('markdown-container').innerHTML = marked.parse(markdownText);
+    } catch (error) {
+        document.getElementById('markdown-container').innerHTML = "<p>Error loading the blog post.</p>";
+    }
+}
