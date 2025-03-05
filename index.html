@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Awake Christian Gospel Ministry Int'l</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script src="js/markdown.js"></script>
     <script defer src="js/script.js"></script>
 </head>
 <body>
@@ -41,13 +42,19 @@
 
     <section id="blog">
         <h2>Church Blog</h2>
-        <div id="blog-content"></div>
+        <div id="blog-content">
+            <a href="blog/post1.md">Blog/Post 1</a><br>
+            <a href="blog/post2.md">Blog/Post 2</a>
+        </div>
     </section>
 
     <section id="gallery">
         <h2>Gallery</h2>
-        <p>Explore moments from our church.</p>
-        <input type="file" id="fileUpload" />
+        <p>Watch our latest church program.</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
+                title="YouTube video player" frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+        </iframe>
         <p><strong>Program Church Postal:</strong></p>
         <img src="images/program_postal.jpg" alt="Church Program Poster" width="100%">
     </section>
@@ -68,22 +75,12 @@
         </form>
     </section>
 
-    <!-- Digital Magazine Container -->
-    <section id="dm-container">
-        <div id="pages">
-            <div class="page"><a href="blog/post1.md">Blog/Page 1</a></div>
-            <div class="page"><a href="blog/post2.md">Blog/Page 2</a></div>
-        </div>
-        <button id="prevBtn">‹</button>
-        <button id="nextBtn">›</button>
-    </section>
-
     <footer>
         <p>&copy; 2025 Awake Christian Gospel Ministry Int'l</p>
     </footer>
 
     <script>
-        // Smooth Scrolling for Navigation Links
+        // Smooth scrolling for navigation links
         document.querySelectorAll('nav ul li a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
