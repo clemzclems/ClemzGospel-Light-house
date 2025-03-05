@@ -23,10 +23,53 @@
         </nav>
     </header>
 
+    <!-- Sections -->
+    <section id="services">
+        <h2>Our Services</h2>
+        <p>Join our powerful services and be blessed.</p>
+    </section>
+
+    <section id="sermons">
+        <h2>Sermons</h2>
+        <p>Listen to our latest sermons.</p>
+    </section>
+
+    <section id="events">
+        <h2>Upcoming Events</h2>
+        <p>Stay updated with our events.</p>
+    </section>
+
+    <section id="blog">
+        <h2>Church Blog</h2>
+        <div id="blog-content"></div>
+    </section>
+
+    <section id="gallery">
+        <h2>Gallery</h2>
+        <p>Explore moments from our church.</p>
+    </section>
+
+    <section id="giving">
+        <h2>Give Online</h2>
+        <p>Your generosity helps us continue our ministry.</p>
+        <a href="https://paypal.me/clemzclems?country.x=AE&locale.x=en_US">Donate via PayPal</a>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form action="https://formspree.io/f/mwpvdgeo" method="POST">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </section>
+
     <!-- Digital Magazine Container -->
     <section id="dm-container">
         <div id="pages">
-            <!-- Pages will be dynamically added here -->
+            <div class="page">Page 1</div>
+            <div class="page">Page 2</div>
         </div>
         <button id="prevBtn">‹</button>
         <button id="nextBtn">›</button>
@@ -35,5 +78,18 @@
     <footer>
         <p>&copy; 2025 Awake Christian Gospel Ministry Int'l</p>
     </footer>
+
+    <script>
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('nav ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                document.getElementById(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
