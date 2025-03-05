@@ -1,3 +1,5 @@
+<img src="../images/church-logo.png" alt="Church Logo" width="120" align="left">
+
 # ✨ Sunday Service Message ✨  
 
 ## **📖 Title: The Vision is for an Appointed Time**  
@@ -14,8 +16,6 @@
 ---
 
 ## **🔍 Message Overview**  
-In this powerful message, **Prophet (Dr.) Matthew Imoisi** teaches about the **importance of patience and trust in God's divine timing.** Many times, we become discouraged when things don’t happen immediately, but we must understand that:  
-
 ✅ **God’s promises never fail** – If He said it, He will do it.  
 ✅ **Delays are not denials** – What seems slow to us is perfect in God's time.  
 ✅ **Faith and endurance are required** – We must wait with **expectation** and **trust** in His plan.  
