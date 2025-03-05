@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Official website of Awake Christian Gospel Ministry Int'l">
     <title>Awake Christian Gospel Ministry Int'l</title>
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Scripts -->
     <script src="js/markdown.js"></script>
     <script defer src="js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.12/marked.min.js"></script>
 </head>
 <body>
     <header>
@@ -40,11 +46,17 @@
         <p>Stay updated with our events.</p>
     </section>
 
+    <!-- Updated Blog Section -->
     <section id="blog">
         <h2>Church Blog</h2>
         <div id="blog-content">
-            <a href="blog/post1.md">Blog/Post 1</a><br>
-            <a href="blog/post2.md">Blog/Post 2</a>
+            <ul>
+                <li><a href="#" onclick="loadMarkdown('blog/post1.md')">Blog Post 1</a></li>
+                <li><a href="#" onclick="loadMarkdown('blog/post2.md')">Blog Post 2</a></li>
+            </ul>
+            <div id="markdown-container">
+                <p>Select a blog post to view.</p>
+            </div>
         </div>
     </section>
 
@@ -55,7 +67,7 @@
                 title="YouTube video player" frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
         </iframe>
-        <p><strong>Program Church Postal:</strong></p>
+        <p><strong>Program Church Poster:</strong></p>
         <img src="images/program_postal.jpg" alt="Church Program Poster" width="100%">
     </section>
 
@@ -75,6 +87,23 @@
         </form>
     </section>
 
+    <!-- Digital Magazine Section -->
+    <section id="dm-container">
+        <h2>Digital Magazine</h2>
+        <div id="pages">
+            <!-- Generate 25 pages dynamically -->
+            <script>
+                for (let i = 1; i <= 25; i++) {
+                    document.write(`<div class="page ${i === 1 ? 'active' : ''}">Page ${i}</div>`);
+                }
+            </script>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <button id="prevPage">Previous</button>
+        <button id="nextPage">Next</button>
+    </section>
+
     <footer>
         <p>&copy; 2025 Awake Christian Gospel Ministry Int'l</p>
     </footer>
@@ -90,6 +119,45 @@
                 });
             });
         });
+
+        // Digital Magazine Pagination Logic
+        let currentPage = 1;
+        const pages = document.querySelectorAll('.page');
+
+        function updatePages() {
+            pages.forEach((page, index) => {
+                page.classList.toggle('active', index + 1 === currentPage);
+            });
+        }
+
+        document.getElementById('prevPage').addEventListener('click', function() {
+            if (currentPage > 1) {
+                currentPage--;
+                updatePages();
+            }
+        });
+
+        document.getElementById('nextPage').addEventListener('click', function() {
+            if (currentPage < pages.length) {
+                currentPage++;
+                updatePages();
+            }
+        });
+
+        updatePages();
+        
+        // Markdown Blog Loading Function
+        async function loadMarkdown(file) {
+            try {
+                const response = await fetch(file);
+                if (!response.ok) throw new Error("Markdown file not found");
+                
+                const markdownText = await response.text();
+                document.getElementById('markdown-container').innerHTML = marked.parse(markdownText);
+            } catch (error) {
+                document.getElementById('markdown-container').innerHTML = "<p>Error loading the blog post.</p>";
+            }
+        }
     </script>
 </body>
 </html>
