@@ -13,6 +13,58 @@
     <script src="js/markdown.js"></script>
     <script defer src="js/script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.12/marked.min.js"></script>
+
+    <style>
+        /* Responsive Image */
+        .poster img {
+            max-width: 80%;
+            height: auto;
+            display: block;
+            margin: auto;
+        }
+
+        /* Responsive YouTube Video */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 80%;
+            margin: auto;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Digital Magazine */
+        #dm-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .page {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background: #f9f9f9;
+            text-align: left;
+            max-width: 80%;
+            margin: auto;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        button {
+            margin: 10px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -21,7 +73,7 @@
             <ul>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#sermons">Sermons</a></li>
-                <li><a href="#events">Events</a></li>
+                <li><a href="#events">Upcoming Events</a></li>
                 <li><a href="#blog">Blog</a></li>
                 <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#giving">Give</a></li>
@@ -41,12 +93,28 @@
         <p>Listen to our latest sermons.</p>
     </section>
 
+    <!-- Upcoming Events - Now Includes the Poster -->
     <section id="events">
         <h2>Upcoming Events</h2>
         <p>Stay updated with our events.</p>
+        <div class="poster">
+            <img src="images/program_postal.jpg" alt="Church Program Poster">
+        </div>
     </section>
 
-    <!-- Updated Blog Section -->
+    <!-- YouTube Video (Fixed & Responsive) -->
+    <section id="gallery">
+        <h2>Gallery</h2>
+        <p>Watch our latest church program.</p>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/9UVm5mu8rfY" 
+                    title="YouTube video player" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+            </iframe>
+        </div>
+    </section>
+
+    <!-- Church Blog (Fixing Markdown Error) -->
     <section id="blog">
         <h2>Church Blog</h2>
         <div id="blog-content">
@@ -60,23 +128,30 @@
         </div>
     </section>
 
-    <section id="gallery">
-        <h2>Gallery</h2>
-        <p>Watch our latest church program.</p>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/9UVm5mu8rfY" 
-                title="YouTube video player" frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-        </iframe>
-        <p><strong>Program Church Poster:</strong></p>
-        <img src="images/program_postal.jpg" alt="Church Program Poster" width="100%">
+    <!-- Digital Magazine - Now with Content -->
+    <section id="dm-container">
+        <h2>Digital Magazine</h2>
+        <div id="pages">
+            <div class="page active">Welcome to our Digital Magazine! This is page 1.</div>
+            <div class="page">Page 2: A wonderful testimony of faith.</div>
+            <div class="page">Page 3: How to grow spiritually in 2025.</div>
+            <div class="page">Page 4: Understanding the power of prayer.</div>
+            <div class="page">Page 5: Discovering your purpose in Christ.</div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <button id="prevPage">Previous</button>
+        <button id="nextPage">Next</button>
     </section>
 
+    <!-- Giving Section -->
     <section id="giving">
         <h2>Give Online</h2>
         <p>Your generosity helps us continue our ministry.</p>
         <a href="https://paypal.me/clemzclems?country.x=AE&locale.x=en_US">Donate via PayPal</a>
     </section>
 
+    <!-- Contact -->
     <section id="contact">
         <h2>Contact Us</h2>
         <form action="https://formspree.io/f/mwpvdgeo" method="POST">
@@ -87,40 +162,12 @@
         </form>
     </section>
 
-    <!-- Digital Magazine Section -->
-    <section id="dm-container">
-        <h2>Digital Magazine</h2>
-        <div id="pages">
-            <!-- Generate 25 pages dynamically -->
-            <script>
-                for (let i = 1; i <= 25; i++) {
-                    document.write(`<div class="page ${i === 1 ? 'active' : ''}">Page ${i}</div>`);
-                }
-            </script>
-        </div>
-
-        <!-- Navigation Buttons -->
-        <button id="prevPage">Previous</button>
-        <button id="nextPage">Next</button>
-    </section>
-
     <footer>
         <p>&copy; 2025 Awake Christian Gospel Ministry Int'l</p>
     </footer>
 
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('nav ul li a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                document.getElementById(targetId).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Digital Magazine Pagination Logic
+        // Digital Magazine Navigation
         let currentPage = 1;
         const pages = document.querySelectorAll('.page');
 
@@ -145,8 +192,8 @@
         });
 
         updatePages();
-        
-        // Markdown Blog Loading Function
+
+        // Blog Markdown Loader
         async function loadMarkdown(file) {
             try {
                 const response = await fetch(file);
