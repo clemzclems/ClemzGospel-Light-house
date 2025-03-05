@@ -7,7 +7,7 @@ body {
 }
 header {
     background: blue;
-    color:#ff99cc;
+    color:yellow;
     padding: 1rem;
     text-align: center;
 }
@@ -26,8 +26,8 @@ nav ul li a {
 footer {
     text-align: center;
     padding: 1rem;
-    background: #333;
-    color: white;
+    background: blue;
+    color: yellow;
     margin-top: 20px;
 }
 </style>
