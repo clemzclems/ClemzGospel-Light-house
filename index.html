@@ -114,18 +114,133 @@
     </div>
 </section>
 
-    <!-- Church Blog (Fixing Markdown Error) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Church Blog & Digital Magazine</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.10/marked.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; padding: 0; }
+        section { margin-bottom: 40px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        .page { display: none; }
+        .page.active { display: block; }
+        .pagination a { padding: 5px 10px; text-decoration: none; border: 1px solid #000; margin: 2px; }
+        .pagination a:hover { background: #ddd; }
+        #markdown-container { border: 1px solid #ccc; padding: 10px; margin-top: 10px; min-height: 100px; }
+    </style>
+</head>
+<body>
+
+    <!-- Church Blog Section -->
     <section id="blog">
         <h2>Church Blog</h2>
-        <div id="blog-content">
-            <ul>
-                <li><a href="#" onclick="loadMarkdown('blog/post1.md')">Blog Post 1</a></li>
-                <li><a href="#" onclick="loadMarkdown('blog/post2.md')">Blog Post 2</a></li>
-            </ul>
-            <div id="markdown-container">
-                <p>Select a blog post to view.</p>
+        <p>Read our latest articles and teachings.</p>
+        <ul>
+            <li><a href="#" onclick="loadMarkdown('blog/post1.md')">Blog Post 1</a></li>
+            <li><a href="#" onclick="loadMarkdown('blog/post2.md')">Blog Post 2</a></li>
+            <li><a href="#" onclick="loadMarkdown('blog/post3.md')">Blog Post 3</a></li>
+        </ul>
+        <div id="markdown-container">
+            <p>Select a blog post to view.</p>
         </div>
     </section>
+
+    <!-- Digital Magazine -->
+    <section id="dm-container">
+        <h2>Digital Magazine</h2>
+        <div id="pages">
+            <div class="page active" id="page1">
+                <h2>Welcome to Our Digital Magazine!</h2>  
+                <img src="images/magazine-cover.jpg" alt="Magazine Cover">  
+                <p>This magazine is designed to uplift your spirit, deepen your understanding of God's word, and guide you in your walk with Christ.</p>  
+                <p><b>Verse of the Day:</b> "Your word is a lamp to my feet and a light to my path." - Psalm 119:105</p>  
+            </div>
+            <div class="page" id="page2"><h2>Page 2 Title</h2><p>Content for Page 2.</p></div>
+            <div class="page" id="page3"><h2>Page 3 Title</h2><p>Content for Page 3.</p></div>
+            <div class="page" id="page4"><h2>Page 4 Title</h2><p>Content for Page 4.</p></div>
+            <div class="page" id="page5"><h2>Page 5 Title</h2><p>Content for Page 5.</p></div>
+            <div class="page" id="page6"><h2>Page 6 Title</h2><p>Content for Page 6.</p></div>
+            <div class="page" id="page7"><h2>Page 7 Title</h2><p>Content for Page 7.</p></div>
+            <div class="page" id="page8"><h2>Page 8 Title</h2><p>Content for Page 8.</p></div>
+            <div class="page" id="page9"><h2>Page 9 Title</h2><p>Content for Page 9.</p></div>
+            <div class="page" id="page10"><h2>Page 10 Title</h2><p>Content for Page 10.</p></div>
+            <div class="page" id="page11"><h2>Page 11 Title</h2><p>Content for Page 11.</p></div>
+            <div class="page" id="page12"><h2>Page 12 Title</h2><p>Content for Page 12.</p></div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <button id="prevPage">Previous</button>
+        <button id="nextPage">Next</button>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <a data-page="1" href="#page1">1</a>
+            <a data-page="2" href="#page2">2</a>
+            <a data-page="3" href="#page3">3</a>
+            <a data-page="4" href="#page4">4</a>
+            <a data-page="5" href="#page5">5</a>
+            <a data-page="6" href="#page6">6</a>
+            <a data-page="7" href="#page7">7</a>
+            <a data-page="8" href="#page8">8</a>
+            <a data-page="9" href="#page9">9</a>
+            <a data-page="10" href="#page10">10</a>
+            <a data-page="11" href="#page11">11</a>
+            <a data-page="12" href="#page12">12</a>
+        </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let pages = document.querySelectorAll(".page");
+            let currentPage = 0;
+
+            function showPage(index) {
+                pages.forEach((page, i) => {
+                    page.classList.toggle("active", i === index);
+                });
+            }
+
+            document.getElementById("prevPage").addEventListener("click", function () {
+                if (currentPage > 0) {
+                    currentPage--;
+                    showPage(currentPage);
+                }
+            });
+
+            document.getElementById("nextPage").addEventListener("click", function () {
+                if (currentPage < pages.length - 1) {
+                    currentPage++;
+                    showPage(currentPage);
+                }
+            });
+
+            document.querySelectorAll(".pagination a").forEach(link => {
+                link.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    currentPage = parseInt(this.getAttribute("data-page")) - 1;
+                    showPage(currentPage);
+                });
+            });
+
+            showPage(currentPage);
+
+            // Markdown Loader Function
+            window.loadMarkdown = function (file) {
+                fetch(file)
+                    .then(response => response.text())
+                    .then(text => {
+                        document.getElementById("markdown-container").innerHTML = marked.parse(text);
+                    })
+                    .catch(error => console.error("Error loading Markdown file:", error));
+            };
+        });
+    </script>
+
+</body>
+</html>
 
 <!-- Digital Magazine Section -->
 <section id="dm-container">
