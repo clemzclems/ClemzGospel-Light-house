@@ -18,16 +18,19 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("dmPageNumber").textContent = index + 1;
     }
 
-    // Create navigation buttons if they don't exist
-    let navContainer = document.createElement("div");
-    navContainer.innerHTML = `
-        <button id="prevPage">Previous</button>
-        <span id="dmPageNumber">1</span>
-        <button id="nextPage">Next</button>
-    `;
-    document.querySelector("#dm-container").appendChild(navContainer);
+    let dmContainer = document.querySelector("#dm-container");
 
-    // Event listeners for digital magazine pagination
+    // Check if buttons already exist before adding them
+    if (!document.getElementById("prevPage") && !document.getElementById("nextPage")) {
+        let navContainer = document.createElement("div");
+        navContainer.innerHTML = `
+            <button id="prevPage">Previous</button>
+            <span id="dmPageNumber">1</span>
+            <button id="nextPage">Next</button>
+        `;
+        dmContainer.appendChild(navContainer);
+    }
+
     document.getElementById("prevPage").addEventListener("click", function () {
         if (currentPage > 0) {
             currentPage--;
@@ -42,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Show first page by default
     showPage(currentPage);
 });
 
@@ -65,10 +67,20 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Load the first blog page by default
     loadMarkdown(currentBlogPage);
 
-    // Event listeners for blog pagination
+    let blogNavContainer = document.querySelector("#blog-nav");
+
+    if (!document.getElementById("prevBlog") && !document.getElementById("nextBlog")) {
+        let blogPagination = document.createElement("div");
+        blogPagination.innerHTML = `
+            <button id="prevBlog">Previous</button>
+            <span id="blogPageNumber">1</span>
+            <button id="nextBlog">Next</button>
+        `;
+        blogNavContainer.appendChild(blogPagination);
+    }
+
     document.getElementById("prevBlog").addEventListener("click", function () {
         if (currentBlogPage > 1) {
             currentBlogPage--;
