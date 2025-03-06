@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+yup<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -145,6 +145,42 @@
         <div id="markdown-container">
             <p>Select a blog post to view.</p>
         </div>
+
+
+        script>
+  // Function to load the markdown file corresponding to the selected page.
+  function loadMarkdown(page) {
+    $.ajax({
+      // If your markdown files are in a subfolder named "content", include it in the URL.
+      url: 'content/blog-page-' + page + '.md',
+      dataType: 'text',
+      success: function(data) {
+        try {
+          var htmlContent = marked.parse(data);
+          $('#markdownContent').html(htmlContent);
+        } catch (error) {
+          $('#markdownContent').html('<p style="color:red;">Error processing markdown content.</p>');
+          console.error('Markdown processing error:', error);
+        }
+      },
+      error: function() {
+        $('#markdownContent').html('<p style="color:red;">Error: Unable to load blog content for page ' + page + '.</p>');
+      }
+    });
+  }
+
+  // Event handler for pagination links.
+  $('.pagination a').on('click', function(e) {
+    e.preventDefault(); // Prevent default anchor behavior
+    var page = $(this).data('page');
+    loadMarkdown(page);
+  });
+
+  // Load the first page by default.
+  $(document).ready(function() {
+    loadMarkdown(1);
+  });
+    </script>
     </section>
 
     <!-- Digital Magazine -->
